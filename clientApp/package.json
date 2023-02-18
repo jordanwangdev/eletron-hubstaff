@@ -16,14 +16,15 @@
     "electron-packager": "^17.1.1"
   },
   "dependencies": {
-    "@jitsi/robotjs": "^0.6.11",
+    "active-win": "^8.0.3",
     "aws-sdk": "^2.1311.0",
     "bcryptjs": "^2.4.3",
     "blueimp-md5": "^2.19.0",
+    "electron-rebuild": "^3.2.9",
     "iohook": "^0.9.3",
+    "node-browser-history": "^2.4.12",
     "nodemon": "^2.0.20",
     "screenshot-desktop": "^0.0.0-development",
-    "sharp": "^0.31.3",
     "timer-node": "^5.0.7",
     "yarn": "^1.22.19"
   },

@@ -29,11 +29,13 @@ const CREDENTIALS = {
 // }
 
 const IPC_URL = {
-  WEBSERVER_URL: 'https://api.workship.in',
+  // WEBSERVER_URL: 'https://api.workship.in',
+  WEBSERVER_URL: 'http://localhost:5000',
   SETTING_URL: '/settings/get-settings',
   VERIFYUSER_URL: '/auth/login',
   GETCURRENTSTATE_URL: '/api/get_current_state',
   UPLOADSTATE_URL: '/api/upload_state',
+  UPLOADIP_URL: '/upload/urltrack'
 }
 
 module.exports = {

@@ -5,29 +5,30 @@ const { dialog } = require('electron')
     login and get user data
 */
 function settingAPI({}, callback) {
-    console.log("========================start get settings data==========================");
-    var clientServerOptions = {
-        url: IPC_URL.WEBSERVER_URL + IPC_URL.SETTING_URL,
-        body: JSON.stringify({}),
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }
+    // console.log("========================start get settings data==========================");
+    // var clientServerOptions = {
+    //     url: IPC_URL.WEBSERVER_URL + IPC_URL.SETTING_URL,
+    //     body: JSON.stringify({}),
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     }
+    // }
 
-    req(clientServerOptions, function (error, res) {
-        if(error) {
-            const options = {
-                type: 'info',
-                message: 'Connection Error!'
-            };
-            dialog.showMessageBox(null, options);
-        }
-        else {
-            var values = JSON.parse(res.body);
-            callback(error, values);
-        }
-    });
+    // req(clientServerOptions, function (error, res) {
+    //     if(error) {
+    //         const options = {
+    //             type: 'info',
+    //             message: 'Connection Error!'
+    //         };
+    //         dialog.showMessageBox(null, options);
+    //     }
+    //     else {
+    //         console.log(res.body);
+    //         var values = JSON.parse(res.body);
+    //         callback(error, values);
+    //     }
+    // });
 }
 
 /* 

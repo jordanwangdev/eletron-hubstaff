@@ -1,0 +1,35 @@
+{
+  "name": "smartsync_s3_api",
+  "version": "1.0.0",
+  "description": "API to get presigned S3 url",
+  "main": "server.js",
+  "scripts": {
+    "start": "node ./ServerApp/server.js",
+    "prestart": "mongod --dbpath ./ServerApp/db",
+    "server": "nodemon ./ServerApp/server.js",
+    "client": "cd ./clientApp && npm start ",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "api"
+  ],
+  "author": "ritbikbharti",
+  "license": "MIT",
+  "dependencies": {
+    "active-win": "^8.0.3",
+    "aws-sdk": "^2.630.0",
+    "body-parser": "^1.20.1",
+    "concurrently": "^7.6.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.17.1",
+    "iohook": "^0.9.3",
+    "jsonwebtoken": "^9.0.0",
+    "md5": "^2.3.0",
+    "mongoose": "^6.9.1",
+    "node-browser-history": "^2.4.12",
+    "nodemon": "^2.0.20",
+    "request": "^2.88.2",
+    "screenshot-desktop": "0.0.0-development"
+  }
+}

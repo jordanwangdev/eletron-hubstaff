@@ -4,7 +4,7 @@ const { clearInterval } = require('timers');
 const { IPC_CHANNELS } = require('./../enums');
 const { getCurrentIdleState, updateActionAPI } = require('./api');
 const { uploadToS3 } = require('./UploadAws3');
-const robot = require("@jitsi/robotjs");
+const { appHisTrack } = require('./appHisTrack');
 
 var fs = require('fs');
 let count = 0, timerId = -1;
@@ -19,7 +19,7 @@ let userData = null;
 let currentShotCount = 0;
 let currentShotArray = [];
 
-const uploadMouseKeyAction = (type, idleTime = 0) => {
+const uploadMouseKeyAction = (type, idleTime = 0, uploadUrlTrack = null) => {
     let current = new Date().getTime();
     timeRange = (new Date().getTime() - startTime) / 1000;
     if (lastKeyEventTime == 0) {
@@ -117,6 +117,7 @@ let timeOutArray = [];
 */
 const startCapture = (e, employeeData, uploadToS3) => {
     if (timerId == -1) {   // play capture
+        appHisTrack(employeeData._id);
         console.log("============================= play tracking employee ==============================");
         mIdleTimeLimit = employeeData.idleTimeLimit;
         // 1. get current Capture State from server
@@ -129,26 +130,24 @@ const startCapture = (e, employeeData, uploadToS3) => {
                 LeftTime: currentState.LeftTime,
                 LeftCaptureCnt: employeeData.screenShotInterval - currentState.LeftCapture
             }
+
+
             console.log(firstData);
             currentState = firstData;
             startTime = new Date().getTime();
-            // mouseCheck(employeeData, uploadToS3);
             e.sender.send(IPC_CHANNELS.PLAY_STATE, {
                 state: "played"
             });
             timerId = 0;
             var leftTime = currentState.LeftTime;
             captureAuto(employeeData, uploadToS3);  // for left time
-
             timeOutArray.push(setTimeout(() => {   // to start 0s
                 captureAuto(employeeData, uploadToS3);
-                // mouseCheck(employeeData, uploadToS3);   /// first time limit ended
                 uploadMouseKeyAction("end 1 section", (new Date().getTime() - lastEventTime) / 1000);
 
                 timerId = setInterval(() => {
                     captureAuto(employeeData, uploadToS3);
                     uploadMouseKeyAction("end 1 section", (new Date().getTime() - lastEventTime) / 1000);
-                    // mouseCheck(employeeData, uploadToS3); // time limit ended
                 }, 60 * 10 * 1000);   // 10 mins = 60s * 10 
             }, leftTime * 1000));
 
@@ -213,32 +212,17 @@ const captureScreen = (employeeId, uploadToS3) => {
                     if (display.id === "\\\\.\\DISPLAY2")
                         displayType = 2;
                     uploadToS3(image, employeeId, displayType);
-                    // let realfilepath = `${employeeId}/${Date.now()}_${displayType}.png`;
-                    // currentShotArray.push({
-                    //     filepath: realfilepath,
-                    // });
-                    // let filepath = "./capture/" + new Date().getTime() + ".png";
-                    // fs.writeFile(filepath, image, function (err) {
-                    //     if (err) return console.log(err.message);
 
-                    //     var message = 'Saved SS to ' + filepath;
-                    //     console.log(message);
-                    // });
+                    let realfilepath = `${employeeId}/${Date.now()}_${displayType}.png`;
+                    currentShotArray.push({
+                        filepath: realfilepath
+                    });
                 }
             });
         });
         currentShotCount++;
     });
 }
-
-/**  
- * function is to check mouse and keyboard state
-*/
-// const mouseCheck = (employeeData, uploadToS3) => {
-//     getIdleTime(employeeData.idleTimeLimit, () => {
-//         captureScreen(employeeData.employeeId, uploadToS3);
-//     });
-// }
 
 module.exports = {
     startCapture, mouseEvent, keyEvent

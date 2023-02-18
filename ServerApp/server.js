@@ -11,7 +11,7 @@ app.use(bodyParser.json())
 
 mongoose.set('strictQuery', true);
 
-let dbConnect = "mongodb://127.0.0.1:27017/ss_screens";
+let dbConnect = "mongodb://admin:Xoun2iTtu6rnQVz@3.111.125.73:27017/emt";
 if (process.env.NODE_ENV == 'production') {
     dbConnect = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.LIVE_DB_URL}/emt`;
 }

@@ -8,6 +8,7 @@ const { IPC_CHANNELS } = require('./enums');
 const { startCapture, mouseEvent, keyEvent } = require('./components/ScreenShot');
 const { uploadToS3 } = require('./components/UploadAws3');
 const { loginAPI, settingAPI } = require('./components/api');
+
 const path = require('path');
 const ioHook = require('iohook');
 let canDeleteStateDefault, screenIntervalDefault, idleTImeDefault;
@@ -55,6 +56,7 @@ function createWindow() {
       dialog.showMessageBox(null, options);
     }
   });
+
 }
 
 // This method will be called when Electron has finished
@@ -78,7 +80,6 @@ app.on('activate', () => {
     createWindow()
   }
 })
-
 
 var employeeData = null;
 
@@ -123,6 +124,7 @@ ioHook.on('mousemove', (event) => {
 });
 
 ioHook.on('keydown', (event) => {
+
   keyEvent();
 });
 

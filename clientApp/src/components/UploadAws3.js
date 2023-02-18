@@ -2,7 +2,6 @@
 const { CREDENTIALS } = require('./../enums');
 
 var AWS = require('aws-sdk');
-// const sharp = require('sharp');
 
 AWS.config.update({
     credentials: CREDENTIALS,
@@ -14,30 +13,6 @@ AWS.config.update({
 // });
 
 const s3 = new AWS.S3();
-// upload image to AWS S3
-function uploadImageToAWS(image, filename) {
-    console.log(filename);
-    // sharp(image).resize(1366, 768).toBuffer((err, buffer) => {
-    //     if (err) {
-    //         console.error(err);
-    //     }
-    //     else {
-    //         console.log("start to upload here");
-    //         const paramsAWS = {
-    //             Bucket: 'emt-image-workship',
-    //             Key: filename,
-    //             Body: buffer,
-    //             ContentType: 'image/png',
-    //         }
-    //         s3.upload(paramsAWS, (err, data) => {
-    //             if (err) {
-    //                 console.error(err);
-    //             }
-    //             console.log('Screenshot successfully uploaded to ${data.Location}');
-    //         });
-    //     }
-    // });
-}
 
 const uploadToS3 = (file, employeeId, displayType) => {
     const s3Params = {
@@ -58,5 +33,5 @@ const uploadToS3 = (file, employeeId, displayType) => {
 };
 
 module.exports = {
-    uploadImageToAWS, uploadToS3
+    uploadToS3
 };
